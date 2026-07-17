@@ -1,0 +1,176 @@
+<mxfile host="app.diagrams.net" agent="Codex" pages="3">
+  <diagram name="1 — Шардирование" id="task1-sharding">
+    <mxGraphModel dx="1593" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="p1-0" />
+        <mxCell id="p1-1" parent="p1-0" />
+        <mxCell id="p1-app" parent="p1-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api" vertex="1">
+          <mxGeometry height="70" width="140" x="270" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-mongos" parent="p1-1" style="rounded=1;whiteSpace=wrap;html=1;" value="mongos" vertex="1">
+          <mxGeometry height="70" width="140" x="530" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-config" parent="p1-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="configSrv" vertex="1">
+          <mxGeometry height="100" width="100" x="550" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-shard1" parent="p1-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-1" vertex="1">
+          <mxGeometry height="100" width="100" x="780" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-shard2" parent="p1-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-1" vertex="1">
+          <mxGeometry height="100" width="100" x="780" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-edge-app-mongos" edge="1" parent="p1-1" source="p1-app" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p1-mongos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-edge-mongos-config" edge="1" parent="p1-1" source="p1-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p1-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-edge-mongos-shard1" edge="1" parent="p1-1" source="p1-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p1-shard1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p1-edge-mongos-shard2" edge="1" parent="p1-1" source="p1-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p1-shard2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="2 — +Репликация" id="task1-replication">
+    <mxGraphModel dx="1593" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="p2-0" />
+        <mxCell id="p2-1" parent="p2-0" />
+        <mxCell id="p2-app" parent="p2-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api" vertex="1">
+          <mxGeometry height="60" width="130" x="150" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-mongos" parent="p2-1" style="rounded=1;whiteSpace=wrap;html=1;" value="mongos" vertex="1">
+          <mxGeometry height="60" width="130" x="350" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-config" parent="p2-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="configSrv" vertex="1">
+          <mxGeometry height="100" width="100" x="365" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-group1" parent="p2-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard1" vertex="1">
+          <mxGeometry height="300" width="440" x="560" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-s11" parent="p2-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-s12" parent="p2-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-s13" parent="p2-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-repl-11-12" edge="1" parent="p2-group1" source="p2-s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-s12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-repl-11-13" edge="1" parent="p2-group1" source="p2-s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-s13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-group2" parent="p2-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard2" vertex="1">
+          <mxGeometry height="300" width="440" x="560" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-s21" parent="p2-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-s22" parent="p2-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-s23" parent="p2-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-repl-21-22" edge="1" parent="p2-group2" source="p2-s21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-s22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-repl-21-23" edge="1" parent="p2-group2" source="p2-s21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-s23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-edge-app-mongos" edge="1" parent="p2-1" source="p2-app" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-mongos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-edge-mongos-config" edge="1" parent="p2-1" source="p2-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-edge-mongos-s11" edge="1" parent="p2-1" source="p2-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-s11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p2-edge-mongos-s21" edge="1" parent="p2-1" source="p2-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p2-s21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="3 — +Кэширование" id="task1-caching">
+    <mxGraphModel dx="1593" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="p3-0" />
+        <mxCell id="p3-1" parent="p3-0" />
+        <mxCell id="bokG1x8qnxssYHlzRnVU-0" parent="p3-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api" vertex="1">
+          <mxGeometry height="60" width="130" x="130" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-1" parent="p3-1" style="rounded=1;whiteSpace=wrap;html=1;" value="mongos" vertex="1">
+          <mxGeometry height="60" width="130" x="330" y="365" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-2" parent="p3-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="configSrv" vertex="1">
+          <mxGeometry height="100" width="100" x="345" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-3" parent="p3-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard1" vertex="1">
+          <mxGeometry height="300" width="440" x="540" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-4" parent="bokG1x8qnxssYHlzRnVU-3" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-5" parent="bokG1x8qnxssYHlzRnVU-3" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-6" parent="bokG1x8qnxssYHlzRnVU-3" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-7" edge="1" parent="bokG1x8qnxssYHlzRnVU-3" source="bokG1x8qnxssYHlzRnVU-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-8" edge="1" parent="bokG1x8qnxssYHlzRnVU-3" source="bokG1x8qnxssYHlzRnVU-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-9" parent="p3-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard2" vertex="1">
+          <mxGeometry height="300" width="440" x="540" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-10" parent="bokG1x8qnxssYHlzRnVU-9" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-11" parent="bokG1x8qnxssYHlzRnVU-9" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-12" parent="bokG1x8qnxssYHlzRnVU-9" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-13" edge="1" parent="bokG1x8qnxssYHlzRnVU-9" source="bokG1x8qnxssYHlzRnVU-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-14" edge="1" parent="bokG1x8qnxssYHlzRnVU-9" source="bokG1x8qnxssYHlzRnVU-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-15" edge="1" parent="p3-1" source="bokG1x8qnxssYHlzRnVU-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-16" edge="1" parent="p3-1" source="bokG1x8qnxssYHlzRnVU-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-17" edge="1" parent="p3-1" source="bokG1x8qnxssYHlzRnVU-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bokG1x8qnxssYHlzRnVU-18" edge="1" parent="p3-1" source="bokG1x8qnxssYHlzRnVU-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="bokG1x8qnxssYHlzRnVU-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Quwhtsq6k-CoOBq8eP14-0" parent="p3-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="redis" vertex="1">
+          <mxGeometry height="100" width="100" x="145" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Quwhtsq6k-CoOBq8eP14-1" edge="1" parent="p3-1" source="bokG1x8qnxssYHlzRnVU-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="Quwhtsq6k-CoOBq8eP14-0">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="320" as="sourcePoint" />
+            <mxPoint x="260" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
