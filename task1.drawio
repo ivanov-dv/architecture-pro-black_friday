@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Codex" pages="3">
+<mxfile host="Electron" agent="Codex" pages="5">
   <diagram name="1 — Шардирование" id="task1-sharding">
     <mxGraphModel dx="1593" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -173,4 +173,305 @@
       </root>
     </mxGraphModel>
   </diagram>
-</mxfile>
+  <diagram name="4 — +Service Discovery и API Gateway" id="task1-service-discovery">
+    <mxGraphModel dx="1354" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="p4-0" />
+        <mxCell id="p4-1" parent="p4-0" />
+        <mxCell id="CjULARSA7cEjyBLOzfOD-3" edge="1" parent="p4-1" source="p4-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p4-app2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-6" edge="1" parent="p4-1" source="p4-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p4-app1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-8" edge="1" parent="p4-1" source="p4-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p4-app3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-10" edge="1" parent="p4-1" source="p4-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="p4-consul">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-gateway" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;" value="APISIX Gateway" vertex="1">
+          <mxGeometry height="60" width="120" x="10" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-12" edge="1" parent="p4-1" source="p4-app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p4-consul">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="320" />
+              <mxPoint x="400" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-26" edge="1" parent="p4-1" source="p4-app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p4-mongos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-app1" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api-1" vertex="1">
+          <mxGeometry height="60" width="130" x="170" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-14" edge="1" parent="p4-1" source="p4-app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p4-consul">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="420" />
+              <mxPoint x="390" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-27" edge="1" parent="p4-1" source="p4-app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="p4-mongos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-app2" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api-2" vertex="1">
+          <mxGeometry height="60" width="130" x="200" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-16" edge="1" parent="p4-1" source="p4-app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p4-consul">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-app3" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api-3" vertex="1">
+          <mxGeometry height="60" width="130" x="230" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-redis" parent="p4-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="redis" vertex="1">
+          <mxGeometry height="100" width="100" x="410" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-mongos" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;" value="mongos" vertex="1">
+          <mxGeometry height="60" width="130" x="485" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-consul" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;" value="Consul" vertex="1">
+          <mxGeometry height="60" width="130" x="100" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-config" parent="p4-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="configSrv" vertex="1">
+          <mxGeometry height="100" width="100" x="500" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-group1" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard1" vertex="1">
+          <mxGeometry height="300" width="440" x="650" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-s11" parent="p4-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-s12" parent="p4-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-s13" parent="p4-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-repl-11-12" edge="1" parent="p4-group1" source="p4-s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-s12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-repl-11-13" edge="1" parent="p4-group1" source="p4-s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-s13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-group2" parent="p4-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard2" vertex="1">
+          <mxGeometry height="300" width="440" x="650" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-s21" parent="p4-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-s22" parent="p4-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-s23" parent="p4-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-repl-21-22" edge="1" parent="p4-group2" source="p4-s21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-s22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-repl-21-23" edge="1" parent="p4-group2" source="p4-s21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-s23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-edge-mongos-config" edge="1" parent="p4-1" source="p4-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-edge-mongos-s11" edge="1" parent="p4-1" source="p4-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-s11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p4-edge-mongos-s21" edge="1" parent="p4-1" source="p4-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p4-s21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-18" edge="1" parent="p4-1" source="p4-app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="p4-redis">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="520" />
+              <mxPoint x="450" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-20" edge="1" parent="p4-1" source="p4-app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="p4-redis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-22" edge="1" parent="p4-1" source="p4-app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="p4-redis">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="320" />
+              <mxPoint x="470" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="CjULARSA7cEjyBLOzfOD-28" edge="1" parent="p4-1" source="p4-app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.669;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" target="p4-mongos">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="490" />
+              <mxPoint x="350" y="402.5" />
+              <mxPoint x="572" y="402.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="5 — +CDN" id="task1-cdn">
+    <mxGraphModel dx="1354" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="p5-0" />
+        <mxCell id="p5-1" parent="p5-0" />
+        <mxCell id="p5-users" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="Пользователи из разных регионов" vertex="1">
+          <mxGeometry height="70" width="150" x="10" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-cdn" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="CDN в нескольких регионах" vertex="1">
+          <mxGeometry height="70" width="150" x="200" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-edge-users-cdn" edge="1" parent="p5-1" source="p5-users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p5-cdn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-edge-cdn-gateway" edge="1" parent="p5-1" source="p5-cdn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="p5-gateway">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="275" y="170" />
+              <mxPoint x="70" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p5-layout-3" edge="1" parent="p5-1" source="p5-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p5-app2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-6" edge="1" parent="p5-1" source="p5-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p5-app1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-8" edge="1" parent="p5-1" source="p5-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p5-app3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-10" edge="1" parent="p5-1" source="p5-gateway" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="p5-consul">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-gateway" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="APISIX Gateway" vertex="1">
+          <mxGeometry height="60" width="120" x="10" y="575" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-12" edge="1" parent="p5-1" source="p5-app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p5-consul">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="320" />
+              <mxPoint x="400" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p5-layout-26" edge="1" parent="p5-1" source="p5-app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p5-mongos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-app1" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api-1" vertex="1">
+          <mxGeometry height="60" width="130" x="170" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-14" edge="1" parent="p5-1" source="p5-app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p5-consul">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="420" />
+              <mxPoint x="390" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p5-layout-27" edge="1" parent="p5-1" source="p5-app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="p5-mongos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-app2" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api-2" vertex="1">
+          <mxGeometry height="60" width="130" x="200" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-16" edge="1" parent="p5-1" source="p5-app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p5-consul">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-app3" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="pymongo-api-3" vertex="1">
+          <mxGeometry height="60" width="130" x="230" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-redis" parent="p5-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="redis" vertex="1">
+          <mxGeometry height="100" width="100" x="410" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-mongos" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="mongos" vertex="1">
+          <mxGeometry height="60" width="130" x="485" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-consul" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;" value="Consul" vertex="1">
+          <mxGeometry height="60" width="130" x="100" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-config" parent="p5-1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="configSrv" vertex="1">
+          <mxGeometry height="100" width="100" x="500" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-group1" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard1" vertex="1">
+          <mxGeometry height="300" width="440" x="650" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-s11" parent="p5-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-s12" parent="p5-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-s13" parent="p5-group1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard1-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-repl-11-12" edge="1" parent="p5-group1" source="p5-s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-s12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-repl-11-13" edge="1" parent="p5-group1" source="p5-s11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-s13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-group2" parent="p5-1" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;verticalAlign=top;spacingTop=10;container=1;collapsible=0;recursiveResize=0;" value="Replica Set shard2" vertex="1">
+          <mxGeometry height="300" width="440" x="650" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-s21" parent="p5-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-1" vertex="1">
+          <mxGeometry height="110" width="120" x="50" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-s22" parent="p5-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-2" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-s23" parent="p5-group2" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="shard2-3" vertex="1">
+          <mxGeometry height="110" width="120" x="280" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-repl-21-22" edge="1" parent="p5-group2" source="p5-s21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-s22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-repl-21-23" edge="1" parent="p5-group2" source="p5-s21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-s23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-edge-mongos-config" edge="1" parent="p5-1" source="p5-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-edge-mongos-s11" edge="1" parent="p5-1" source="p5-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-s11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-edge-mongos-s21" edge="1" parent="p5-1" source="p5-mongos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;" target="p5-s21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-18" edge="1" parent="p5-1" source="p5-app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="p5-redis">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="520" />
+              <mxPoint x="450" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p5-layout-20" edge="1" parent="p5-1" source="p5-app2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="p5-redis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p5-layout-22" edge="1" parent="p5-1" source="p5-app1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="p5-redis">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="320" />
+              <mxPoint x="470" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p5-layout-28" edge="1" parent="p5-1" source="p5-app3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.669;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" target="p5-mongos">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="490" />
+              <mxPoint x="350" y="402.5" />
+              <mxPoint x="572" y="402.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
++</mxfile>
