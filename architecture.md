@@ -200,3 +200,107 @@ status.members
 ```
 
 Проверка выполняется фоново на каждом replica set, а не перед каждым запросом. Если последнее измеренное значение больше 5 секунд, некритичное чтение временно направляется на Primary. Для операций сразу после записи Primary используется всегда.
+
+## Задание 10. Миграция на Cassandra
+
+### 10.1. Выбор данных для переноса
+
+| Данные | Перенос в Cassandra | Обоснование |
+|---|---|---|
+| Заказы и текущий статус | Да | Cassandra выдерживает большой поток записей |
+| История заказов | Да | Данные почти не изменяются и хорошо масштабируются по клиентам и периодам |
+| Каталог товаров | Да | Подходит для денормализованных таблиц по товару и категории |
+| Остатки товаров | Нет | Ошибка может привести к продаже отсутствующего товара |
+| Корзины | Да | Данные одной корзины можно хранить в одной партиции и удалять по TTL |
+
+### 10.2. Модель данных Cassandra
+
+| Таблица | Partition key | Clustering key | Назначение |
+|---|---|---|---|
+| orders | order_id | — | Получение заказа и его текущего статуса по идентификатору |
+| order_history | (customer_id, month_bucket) | created_at, order_id | История заказов клиента за месяц |
+| products | product_id | — | Получение карточки товара по идентификатору |
+| product_catalog | (category, bucket) | price, product_id | Поиск товаров по категории и диапазону цен |
+| carts | owner_key | — | Получение текущей корзины пользователя или гостя |
+
+```
+-- Выбирает пространство ключей, в котором будут созданы тип и таблицы.
+USE mobile_world;
+
+-- Создаёт тип элемента заказа.
+CREATE TYPE order_item (
+    product_id uuid,
+    quantity int,
+    unit_price decimal
+);
+
+-- Создаёт таблицу для получения заказа по его идентификатору.
+CREATE TABLE orders (
+    order_id uuid PRIMARY KEY,
+    customer_id uuid,
+    created_at timestamp,
+    items list<frozen<order_item>>,
+    status text,
+    total_amount decimal,
+    geo_zone text
+);
+
+-- Создаёт таблицу истории заказов клиента с разбиением по месяцам.
+CREATE TABLE order_history (
+    customer_id uuid,
+    month_bucket date,
+    created_at timestamp,
+    order_id uuid,
+    status text,
+    total_amount decimal,
+    geo_zone text,
+    PRIMARY KEY ((customer_id, month_bucket), created_at, order_id)
+) WITH CLUSTERING ORDER BY (created_at DESC);
+
+-- Создаёт таблицу карточек товаров без данных об остатках.
+CREATE TABLE products (
+    product_id uuid PRIMARY KEY,
+    name text,
+    category text,
+    price decimal,
+    attributes map<text, text>
+);
+
+-- Создаёт таблицу каталога для поиска по категории и диапазону цен.
+CREATE TABLE product_catalog (
+    category text,
+    bucket tinyint,
+    price decimal,
+    product_id uuid,
+    name text,
+    attributes map<text, text>,
+    PRIMARY KEY ((category, bucket), price, product_id)
+) WITH CLUSTERING ORDER BY (price ASC, product_id ASC);
+
+-- Создаёт таблицу текущих корзин пользователей и гостей.
+CREATE TABLE carts (
+    owner_key text PRIMARY KEY,
+    user_id uuid,
+    session_id text,
+    items map<uuid, int>,
+    status text,
+    created_at timestamp,
+    updated_at timestamp,
+    expires_at timestamp
+);
+```
+
+`order_id`, `product_id`, `owner_key` хорошо распределяются между узлами благодаря хешированию partition key. В `order_history` поле `month_bucket` ограничивает размер партиции одним месяцем.
+
+Популярная категория не хранится в одной партиции: `bucket` вычисляется из `product_id`, например `hash(product_id) % N`. Это распределяет товары категории между несколькими партициями, но для получения всей категории приложение должно выполнить запрос ко всем её bucket. Значение `N` выбирается по результатам нагрузочного тестирования.
+
+Таблицы `orders` и `order_history`, а также `products` и `product_catalog` содержат дублирующиеся данные, потому что каждая таблица оптимизирована под отдельный запрос. При добавлении узла Cassandra перемещает только принадлежащие ему диапазоны токенов, поэтому полного перераспределения всех данных не требуется.
+
+### 10.3. Восстановление целостности данных
+
+| Сущность | Hinted Handoff | Read Repair | Anti-Entropy Repair | Обоснование |
+|---|---|---|---|---|
+| orders | Да | BLOCKING | Да | Текущий статус заказа должен быть согласован между репликами |
+| order_history | Да | NONE | Да | История почти не изменяется, поэтому важнее низкая задержка чтения |
+| products, product_catalog | Да | NONE | Да | Временная устарелость каталога допустима, а чтение должно быть быстрым |
+| carts | Да | BLOCKING | Да | Пользователь должен видеть последние изменения своей корзины |
