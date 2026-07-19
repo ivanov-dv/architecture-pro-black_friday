@@ -83,33 +83,72 @@ sh.enableSharding("mobile_world")
 // Переключает текущий контекст на базу mobile_world.
 use mobile_world
 
-// Создаёт hashed-индекс для shard key коллекции products.
+// Создаёт индекс для shard key.
 db.products.createIndex({ _id: "hashed" })
-
-// Создаёт hashed-индекс для shard key коллекции orders.
 db.orders.createIndex({ customer_id: "hashed" })
-
-// Создаёт hashed-индекс для shard key коллекции carts.
 db.carts.createIndex({ owner_key: "hashed" })
 
-// Шардирует products по хешу идентификатора товара.
+// Шардирует коллекцию по хешу идентификатора.
 sh.shardCollection("mobile_world.products", { _id: "hashed" })
-
-// Шардирует orders по хешу идентификатора клиента.
 sh.shardCollection("mobile_world.orders", { customer_id: "hashed" })
-
-// Шардирует carts по хешу нормализованного владельца корзины.
 sh.shardCollection("mobile_world.carts", { owner_key: "hashed" })
 
-// Ускоряет поиск товаров по категории и диапазону цен.
+// Создание индексов для ускорения выполнения запросов.
 db.products.createIndex({ category: 1, price: 1 })
-
-// Ускоряет получение истории заказов клиента по дате.
 db.orders.createIndex({ customer_id: 1, created_at: -1 })
-
-// Ускоряет поиск активной корзины пользователя или гостя.
 db.carts.createIndex({ owner_key: 1, status: 1 })
 
-// Автоматически удаляет корзину после наступления expires_at.
+// Удаление после наступления expires_at.
 db.carts.createIndex({ expires_at: 1 }, { expireAfterSeconds: 0 })
+```
+
+## Задание 8. «Горячие» шарды
+
+### Метрики
+
+| Метрика |
+|---|
+| CPU, disk IOPS и задержка диска |
+| Количество операций и p95 времени запросов |
+| Количество документов, объём данных |
+| Отставание secondary-реплик |
+
+### Устранение дисбаланса
+
+- Использовать для `products` shard key `{ _id: "hashed" }`, чтобы товары популярных категорий распределялись между шардами.
+- Держать MongoDB Balancer включённым. Он автоматически перемещает данные между шардами.
+- Если коллекция была распределена по `category`, изменить shard key на `{ _id: "hashed" }` через `reshardCollection`.
+- Использовать индекс `{ category: 1, price: 1 }` для запросов к популярным категориям.
+- Использовать `moveChunk` только для ручного устранения дисбаланса. Balancer распределяет объём данных, но не учитывает количество запросов.
+
+### Команды MongoDB
+
+```javascript
+// Показывает количество документов, чанки и объём products на каждом шарде.
+db.products.getShardDistribution()
+
+// Показывает общую конфигурацию шардирования и распределение chunks.
+sh.status()
+
+// Проверяет, сбалансирована ли коллекция products.
+sh.balancerCollectionStatus("mobile_world.products")
+
+// Показывает текущее состояние балансировщика.
+db.adminCommand({ balancerStatus: 1 })
+
+// Включает автоматическое перераспределение данных.
+sh.startBalancer()
+
+// Меняет неудачный shard key на hashed-ключ по идентификатору товара.
+db.adminCommand({
+  reshardCollection: "mobile_world.products",
+  key: { _id: "hashed" }
+})
+
+// Вручную перемещает chunk с указанным товаром на shard2.
+sh.moveChunk(
+  "mobile_world.products",
+  { _id: productId },
+  "shard2"
+)
 ```
