@@ -115,9 +115,9 @@ db.carts.createIndex({ expires_at: 1 }, { expireAfterSeconds: 0 })
 
 ### Устранение дисбаланса
 
-- Использовать для `products` shard key `{ _id: "hashed" }`, чтобы товары популярных категорий распределялись между шардами.
+- После обнаружения горячей категории использовать для `products` составной shard key `{ category: 1, _id: "hashed" }`. Поле `category` позволяет настроить зоны, а хешированный `_id` распределяет товары одной категории между шардами.
 - Держать MongoDB Balancer включённым. Он автоматически перемещает данные между шардами.
-- Если коллекция была распределена по `category`, изменить shard key на `{ _id: "hashed" }` через `reshardCollection`.
+- Создать для категории «Электроника» зону `electronics_zone` и включить в неё минимум два выделенных шарда. Один шард в зоне снова станет горячим.
 - Использовать индекс `{ category: 1, price: 1 }` для запросов к популярным категориям.
 - Использовать `moveChunk` только для ручного устранения дисбаланса. Balancer распределяет объём данных, но не учитывает количество запросов.
 
@@ -139,16 +139,33 @@ db.adminCommand({ balancerStatus: 1 })
 // Включает автоматическое перераспределение данных.
 sh.startBalancer()
 
-// Меняет неудачный shard key на hashed-ключ по идентификатору товара.
+// Создаёт индекс для нового составного shard key.
+db.products.createIndex({ category: 1, _id: "hashed" })
+
+// Меняет shard key, чтобы категории можно было связывать с зонами.
 db.adminCommand({
   reshardCollection: "mobile_world.products",
-  key: { _id: "hashed" }
+  key: { category: 1, _id: "hashed" }
 })
+
+// Добавляет первый выделенный шард в зону популярной категории.
+sh.addShardToZone("shard2", "electronics_zone")
+
+// Добавляет второй выделенный шард в зону популярной категории.
+sh.addShardToZone("shard3", "electronics_zone")
+
+// Закрепляет товары категории «Электроника» за выделенной зоной.
+sh.updateZoneKeyRange(
+  "mobile_world.products",
+  { category: "Электроника", _id: MinKey },
+  { category: "Электроника", _id: MaxKey },
+  "electronics_zone"
+)
 
 // Вручную перемещает chunk с указанным товаром на shard2.
 sh.moveChunk(
   "mobile_world.products",
-  { _id: productId },
+  { category: "Электроника", _id: productId },
   "shard2"
 )
 ```
